@@ -3,7 +3,7 @@
 
 added the BSD-3-Clause "New" or "Revised" License, 
 
-added the iage in readme,
+added the image in readme,
 
 added the custom readme
 
