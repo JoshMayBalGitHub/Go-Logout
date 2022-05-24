@@ -2,35 +2,60 @@
 
 Go Logout is a program which manages your power and sessions, properly?
 
+# Features
+Shutdown, Reboot, Log Out, Go to Lock Screen, Suspend / Sleep, Hibernate are available
 
+You can cancel it, and it has cool images and names as seen below:
 
 ## Visuals
-Preview: <img src= https://gitlab.com/JoshMayBalGitHub/go-logout/-/blob/main/img/preview.png/>
+<img src=https://gitlab.com/JoshMayBalGitHub/go-logout/-/raw/main/img/preview.png/>
+Go-Logout Menu
+
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+First download stack by `curl -sSL https://get.haskellstack.org/ | sh`
 
+Download through the "Download Source code", any format you want.
+
+Then extract it and run `stack setup` then run `stack build`, its gonna take a while, so wait then run `stack run` on terminal.
+
+It should be running.
 ## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+You can click any of the buttons and they are supposed to do what they say, and the names might be different than the usual so here's a list:
 
+Go Back - Exit Program
+
+Go Out - Log Out
+
+Restart - Reboot
+
+Shutoff - Shutdown
+
+SUSeep - Suspend / Sleep
+
+FastSUS - Hibernate
+
+Logock - Go to Lock Screen
 ## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+If you have any issues or feature requests, go here: <a href=https://gitlab.com/JoshMayBalGitHub/go-logout/-/issues>Issues</a>
 
 ## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Replace the images with drawn ones for cool aesthetic!
 
 ## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+I'm open to contributions, as long as it doesnt change much of the look of the project (Images are fine but Names are probably not.)
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+See Installation for testing and developing for the program.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+Other than above,`stack run` is all you need when you are done setting up.
 
 ## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+JoshMayBalGitHub - Only developer for now, and still hasn't changed to JoshMayBalGItlab. Also Owner.
 
 ## License
-For open source projects, say how it is licensed.
+BSD-3-Clause "New" or "Revised" License
+
+Check <a href=https://gitlab.com/JoshMayBalGitHub/go-logout/-/blob/main/LICENSE>LICENSE</a>
 
 ## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+I'm gonna be busy a lot so expect updates to be slow.
