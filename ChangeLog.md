@@ -7,4 +7,7 @@ added the image in readme,
 
 added the custom readme
 
+changed apple old logo to balloon (makes more sense for app logo)
+
+
 ## Unreleased changes
