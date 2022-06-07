@@ -21,13 +21,13 @@ main = do
     Gtk.setWindowWindowPosition win_lginot Gtk.WindowPositionCenter
     Gtk.windowSetDecorated win_lginot False
 
-    goback_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/goback.png"
-    goout_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/go_out.jpg"
-    restart_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/restart.png"
-    shutoff_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/shutoff.png"
-    suseep_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/SUSeep.png"
-    fastSUS_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/fastSUS.png"
-    logock_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/logock.png"
+    goback_img <- Gtk.imageNewFromFile "./img/goback.png"
+    goout_img <- Gtk.imageNewFromFile "./img/go_out.jpg"
+    restart_img <- Gtk.imageNewFromFile "./img/restart.png"
+    shutoff_img <- Gtk.imageNewFromFile "./img/shutoff.png"
+    suseep_img <- Gtk.imageNewFromFile "./img/SUSeep.png"
+    fastSUS_img <- Gtk.imageNewFromFile "./img/fastSUS.png"
+    logock_img <- Gtk.imageNewFromFile "./img/logock.png"
 
     goback_text <- Gtk.labelNew Nothing
     Gtk.labelSetMarkup goback_text "<b>Go Back</b>"
@@ -55,7 +55,6 @@ main = do
     Gtk.buttonSetImage goback_button $ Just goback_img
     Gtk.widgetSetHexpand goback_button False
     on goback_button #clicked $ do
-        putStrLn "Go BACK!!!!"
         Gtk.widgetDestroy win_lginot
     
     go_out_button <- Gtk.buttonNew
@@ -63,7 +62,6 @@ main = do
     Gtk.buttonSetImage go_out_button $ Just goout_img
     Gtk.widgetSetHexpand go_out_button False
     on go_out_button #clicked $ do
-        putStrLn "Go OUT!!!!"
         callCommand "qdbus org.kde.ksmserver /KSMServer logout 0 0 0"
 
     restart_button <- Gtk.buttonNew
@@ -71,7 +69,6 @@ main = do
     Gtk.buttonSetImage restart_button $ Just restart_img
     Gtk.widgetSetHexpand restart_button False
     on restart_button #clicked $ do
-        putStrLn "RestART!!!!"
         callCommand "reboot"
 
     shutoff_button <- Gtk.buttonNew
@@ -79,7 +76,6 @@ main = do
     Gtk.buttonSetImage shutoff_button $ Just shutoff_img
     Gtk.widgetSetHexpand shutoff_button False
     on shutoff_button #clicked $ do
-        putStrLn "ShutOFF!!!!"
         callCommand "shutdown now"
 
     suseep_button <- Gtk.buttonNew
@@ -87,7 +83,6 @@ main = do
     Gtk.buttonSetImage suseep_button $ Just suseep_img
     Gtk.widgetSetHexpand suseep_button False
     on suseep_button #clicked $ do
-        putStrLn "SUSeep!!!!"
         callCommand "systemctl suspend"
     
     fastSUS_button <- Gtk.buttonNew
@@ -95,7 +90,6 @@ main = do
     Gtk.buttonSetImage fastSUS_button $ Just fastSUS_img
     Gtk.widgetSetHexpand fastSUS_button False
     on fastSUS_button #clicked $ do
-        putStrLn "FastSUS!!!!"
         callCommand "systemctl hibernate"
 
     logock_button <- Gtk.buttonNew
@@ -103,7 +97,6 @@ main = do
     Gtk.buttonSetImage logock_button $ Just logock_img
     Gtk.widgetSetHexpand logock_button False
     on logock_button #clicked $ do
-        putStrLn "Logock!!!!"
         callCommand "qdbus org.freedesktop.ScreenSaver /ScreenSaver Lock"
 
     only_grid <- Gtk.gridNew
