@@ -50,7 +50,7 @@ See Installation for testing and developing for the program.
 Other than above,`stack run` is all you need when you are done setting up.
 
 ## Authors and acknowledgment
-JoshMayBalGitHub - Only developer for now, and still hasn't changed to JoshMayBalGItlab. Also Owner.
+JoshMayBalGitHub - Only developer for now, Also Owner.
 
 ## License
 BSD-3-Clause "New" or "Revised" License
