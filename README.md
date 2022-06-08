@@ -8,7 +8,7 @@ Shutdown, Reboot, Log Out, Go to Lock Screen, Suspend / Sleep, Hibernate are ava
 You can cancel it, and it has cool images and names as seen below:
 
 ## Visuals
-<img src=https://raw.githubusercontent.com/JoshMayBalGitHub/Go-Logout/main/img/preview.png/>
+<img src=img/preview.png/>
 Go-Logout Menu
 
 
