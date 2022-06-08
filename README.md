@@ -8,7 +8,7 @@ Shutdown, Reboot, Log Out, Go to Lock Screen, Suspend / Sleep, Hibernate are ava
 You can cancel it, and it has cool images and names as seen below:
 
 ## Visuals
-<img src=https://gitlab.com/JoshMayBalGitHub/go-logout/-/raw/main/img/preview.png/>
+<img src=https://raw.githubusercontent.com/JoshMayBalGitHub/Go-Logout/main/img/preview.png/>
 Go-Logout Menu
 
 
@@ -37,7 +37,7 @@ FastSUS - Hibernate
 
 Logock - Go to Lock Screen
 ## Support
-If you have any issues or feature requests, go here: <a href=https://gitlab.com/JoshMayBalGitHub/go-logout/-/issues>Issues</a>
+If you have any issues or feature requests, go here: <a href=https://github.com/JoshMayBalGitHub/Go-Logout/issues>Issues</a>
 
 ## Roadmap
 Replace the images with drawn ones for cool aesthetic!
@@ -55,7 +55,7 @@ JoshMayBalGitHub - Only developer for now, and still hasn't changed to JoshMayBa
 ## License
 BSD-3-Clause "New" or "Revised" License
 
-Check <a href=https://gitlab.com/JoshMayBalGitHub/go-logout/-/blob/main/LICENSE>LICENSE</a>
+Check <a href=https://github.com/JoshMayBalGitHub/Go-Logout/blob/main/LICENSE>LICENSE</a>
 
 ## Project status
 I'm gonna be busy a lot so expect updates to be slow.
