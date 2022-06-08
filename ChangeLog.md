@@ -9,5 +9,7 @@ added the custom readme
 
 changed apple old logo to balloon (makes more sense for app logo)
 
+fixed major flaw with script
+
 
 ## Unreleased changes
