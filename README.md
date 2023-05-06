@@ -53,7 +53,7 @@ Other than above,`stack run` is all you need when you are done setting up.
 JoshMayBalGitHub - Only developer for now, and still hasn't changed to JoshMayBalGItlab. Also Owner.
 
 ## License
-BSD-3-Clause "New" or "Revised" License
+GNU Lesser General Public License v3
 
 Check <a href=https://gitlab.com/JoshMayBalGitHub/go-logout/-/blob/main/LICENSE>LICENSE</a>
 
