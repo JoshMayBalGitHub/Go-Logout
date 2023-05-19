@@ -42,8 +42,8 @@ main = do
       suffix  = ".png"
       choices = [ ("goback",    Gtk.widgetDestroy win_lginot)
                 , ("go_out",    callCommand "qdbus org.kde.ksmserver /KSMServer logout 0 0 0")
-                , ("restart",    callCommand "reboot")
-                , ("shutoff",  callCommand "shutdown now")
+                , ("restart",    callCommand "qdbus org.kde.ksmserver /KSMServer logout 0 1 0")
+                , ("shutoff",  callCommand "qdbus org.kde.ksmserver /KSMServer logout 0 2 0")
                 , ("SUSeep",   callCommand "systemctl suspend")
                 , ("fastSUS", callCommand "systemctl hibernate")
                 , ("logock",      callCommand "qdbus org.freedesktop.ScreenSaver /ScreenSaver Lock")
