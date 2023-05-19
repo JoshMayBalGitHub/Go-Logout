@@ -1,133 +1,106 @@
-
 {-# LANGUAGE OverloadedLabels #-}
 {-# LANGUAGE OverloadedStrings #-}
-
 module Main where
 
 import Data.GI.Base
+import Data.Char (toUpper, toLower)
+import qualified Data.Text as Text (pack, unpack)
 import qualified GI.Gtk as Gtk
 import System.Process
 
+capitalized :: [Char] -> [Char]
+capitalized [] = []
+capitalized (x:xs) = toUpper x : map toLower xs
+
 main :: IO ()
-main = do 
-    Gtk.init Nothing
+main = do
+  Gtk.init Nothing
 
-    win_lginot <- Gtk.windowNew Gtk.WindowTypeToplevel
-    Gtk.setContainerBorderWidth win_lginot 10
-    Gtk.setWindowTitle win_lginot "Go-Logout"
-    Gtk.setWindowResizable win_lginot False
-    Gtk.setWindowDefaultWidth win_lginot 750
-    Gtk.setWindowDefaultHeight win_lginot 225
-    Gtk.setWindowWindowPosition win_lginot Gtk.WindowPositionCenter
-    Gtk.windowSetDecorated win_lginot False
+  win_lginot <- Gtk.windowNew Gtk.WindowTypeToplevel
+  set win_lginot
+    [ #borderWidth          := 10
+    , #title                := "Go-Logout"
+    , #defaultWidth         := 750
+    , #defaultHeight        := 225
+    , #resizable            := False
+    , #windowPosition       := Gtk.WindowPositionCenter
+    , #decorated            := False
+    ]
 
-    goback_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/goback.png"
-    goout_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/go_out.jpg"
-    restart_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/restart.png"
-    shutoff_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/shutoff.png"
-    suseep_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/SUSeep.png"
-    fastSUS_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/fastSUS.png"
-    logock_img <- Gtk.imageNewFromFile "/media/joshlenovo/Expansion/Linux_Storage/test_csharp/haskell-gtk-apps/go-logout/img/logock.png"
+  Gtk.onWidgetDestroy win_lginot Gtk.mainQuit
 
-    goback_text <- Gtk.labelNew Nothing
-    Gtk.labelSetMarkup goback_text "<b>Go Back</b>"
+  only_grid <- Gtk.gridNew
+  set only_grid
+    [ #columnSpacing        := 10
+    , #rowSpacing           := 10
+    , #columnHomogeneous    := True
+    ]
 
-    go_out_text <- Gtk.labelNew Nothing
-    Gtk.labelSetMarkup go_out_text "<b>Go Out</b>"
+  #add win_lginot only_grid
 
-    restart_text <- Gtk.labelNew Nothing
-    Gtk.labelSetMarkup restart_text "<b>Restart</b>"
+  let prefix  = "img/"
+      suffix  = ".png"
+      choices = [ ("goback",    Gtk.widgetDestroy win_lginot)
+                , ("go_out",    callCommand "qdbus org.kde.ksmserver /KSMServer logout 0 0 0")
+                , ("restart",    callCommand "reboot")
+                , ("shutoff",  callCommand "shutdown now")
+                , ("SUSeep",   callCommand "systemctl suspend")
+                , ("fastSUS", callCommand "systemctl hibernate")
+                , ("logock",      callCommand "qdbus org.freedesktop.ScreenSaver /ScreenSaver Lock")
+                ]
 
-    shutoff_text <- Gtk.labelNew Nothing
-    Gtk.labelSetMarkup shutoff_text "<b>Shutoff</b>"
+  let btnwbal :: [(String, IO ())] -> IO ()
+      btnwbal [] = return ()
+      btnwbal (x:xs) = do
+        -- create Gtk image
+        image <- Gtk.imageNewFromFile $ prefix ++ (fst x) ++ suffix
+        -- create Gtk button
+        button_all <- Gtk.buttonNew
+        set button_all
+          [ #relief  := Gtk.ReliefStyleNone
+          , #image   := image
+          , #hexpand := False
+          ]
+        -- What happens when 'button' is clicked
+        on button_all #clicked $ do
+          snd x
+        -- Attach 'button' to grid depends on length of xs
+        let a = (length choices) - 1
+            b = length xs
+            col = fromIntegral $ a - b
+        -- Recursion happens by calling the function on 'xs'
+        btnwbal xs
+        #attach only_grid button_all col 0 1 1
+        -- create Gtk label
+  goback_text <- Gtk.labelNew Nothing
+  Gtk.labelSetMarkup goback_text "<b>Go Back</b>"
 
-    suseep_text <- Gtk.labelNew Nothing
-    Gtk.labelSetMarkup suseep_text "<b>SUSeep</b>"
+  go_out_text <- Gtk.labelNew Nothing
+  Gtk.labelSetMarkup go_out_text "<b>Go Out</b>"
 
-    fastSUS_text <- Gtk.labelNew Nothing
-    Gtk.labelSetMarkup fastSUS_text "<b>FastSUS</b>"
+  restart_text <- Gtk.labelNew Nothing
+  Gtk.labelSetMarkup restart_text "<b>Restart</b>"
 
-    logock_text <- Gtk.labelNew Nothing
-    Gtk.labelSetMarkup logock_text "<b>Logock</b>"
+  shutoff_text <- Gtk.labelNew Nothing
+  Gtk.labelSetMarkup shutoff_text "<b>Shutoff</b>"
 
-    goback_button <- Gtk.buttonNew
-    Gtk.buttonSetRelief goback_button Gtk.ReliefStyleNone
-    Gtk.buttonSetImage goback_button $ Just goback_img
-    Gtk.widgetSetHexpand goback_button False
-    on goback_button #clicked $ do
-        putStrLn "Go BACK!!!!"
-        Gtk.widgetDestroy win_lginot
-    
-    go_out_button <- Gtk.buttonNew
-    Gtk.buttonSetRelief go_out_button Gtk.ReliefStyleNone
-    Gtk.buttonSetImage go_out_button $ Just goout_img
-    Gtk.widgetSetHexpand go_out_button False
-    on go_out_button #clicked $ do
-        putStrLn "Go OUT!!!!"
-        callCommand "qdbus org.kde.ksmserver /KSMServer logout 0 0 0"
+  suseep_text <- Gtk.labelNew Nothing
+  Gtk.labelSetMarkup suseep_text "<b>SUSeep</b>"
 
-    restart_button <- Gtk.buttonNew
-    Gtk.buttonSetRelief restart_button Gtk.ReliefStyleNone
-    Gtk.buttonSetImage restart_button $ Just restart_img
-    Gtk.widgetSetHexpand restart_button False
-    on restart_button #clicked $ do
-        putStrLn "RestART!!!!"
-        callCommand "reboot"
+  fastSUS_text <- Gtk.labelNew Nothing
+  Gtk.labelSetMarkup fastSUS_text "<b>FastSUS</b>"
 
-    shutoff_button <- Gtk.buttonNew
-    Gtk.buttonSetRelief shutoff_button Gtk.ReliefStyleNone
-    Gtk.buttonSetImage shutoff_button $ Just shutoff_img
-    Gtk.widgetSetHexpand shutoff_button False
-    on shutoff_button #clicked $ do
-        putStrLn "ShutOFF!!!!"
-        callCommand "shutdown now"
+  logock_text <- Gtk.labelNew Nothing
+  Gtk.labelSetMarkup logock_text "<b>Logock</b>"
+  
+  #attach only_grid goback_text 0 1 1 1
+  #attach only_grid go_out_text 1 1 1 1
+  #attach only_grid restart_text 2 1 1 1
+  #attach only_grid shutoff_text 3 1 1 1
+  #attach only_grid suseep_text 4 1 1 1
+  #attach only_grid fastSUS_text 5 1 1 1
+  #attach only_grid logock_text 6 1 1 1
+  btnwbal choices
 
-    suseep_button <- Gtk.buttonNew
-    Gtk.buttonSetRelief suseep_button Gtk.ReliefStyleNone
-    Gtk.buttonSetImage suseep_button $ Just suseep_img
-    Gtk.widgetSetHexpand suseep_button False
-    on suseep_button #clicked $ do
-        putStrLn "SUSeep!!!!"
-        callCommand "systemctl suspend"
-    
-    fastSUS_button <- Gtk.buttonNew
-    Gtk.buttonSetRelief fastSUS_button Gtk.ReliefStyleNone
-    Gtk.buttonSetImage fastSUS_button $ Just fastSUS_img
-    Gtk.widgetSetHexpand fastSUS_button False
-    on fastSUS_button #clicked $ do
-        putStrLn "FastSUS!!!!"
-        callCommand "systemctl hibernate"
-
-    logock_button <- Gtk.buttonNew
-    Gtk.buttonSetRelief logock_button Gtk.ReliefStyleNone
-    Gtk.buttonSetImage logock_button $ Just logock_img
-    Gtk.widgetSetHexpand logock_button False
-    on logock_button #clicked $ do
-        putStrLn "Logock!!!!"
-        callCommand "qdbus org.freedesktop.ScreenSaver /ScreenSaver Lock"
-
-    only_grid <- Gtk.gridNew
-    Gtk.gridSetColumnSpacing only_grid 10
-    Gtk.gridSetRowSpacing only_grid 10
-    Gtk.gridSetColumnHomogeneous only_grid True
-
-    #attach only_grid goback_button 0 0 1 1
-    #attach only_grid goback_text 0 1 1 1
-    #attach only_grid go_out_button 1 0 1 1
-    #attach only_grid go_out_text 1 1 1 1
-    #attach only_grid restart_button 2 0 1 1
-    #attach only_grid restart_text 2 1 1 1
-    #attach only_grid shutoff_button 3 0 1 1
-    #attach only_grid shutoff_text 3 1 1 1
-    #attach only_grid suseep_button 4 0 1 1
-    #attach only_grid suseep_text 4 1 1 1
-    #attach only_grid fastSUS_button 5 0 1 1
-    #attach only_grid fastSUS_text 5 1 1 1
-    #attach only_grid logock_button 6 0 1 1
-    #attach only_grid logock_text 6 1 1 1
-
-    #add win_lginot only_grid
-
-    Gtk.onWidgetDestroy win_lginot Gtk.mainQuit
-    #showAll win_lginot
-    Gtk.main
+  #showAll win_lginot
+  Gtk.main
