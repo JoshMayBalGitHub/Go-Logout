@@ -41,9 +41,9 @@ main = do
   let prefix  = "img/"
       suffix  = ".png"
       choices = [ ("goback",    Gtk.widgetDestroy win_lginot)
-                , ("go_out",    callCommand "qdbus org.kde.ksmserver /KSMServer logout 0 0 0")
-                , ("restart",    callCommand "qdbus org.kde.ksmserver /KSMServer logout 0 1 0")
-                , ("shutoff",  callCommand "qdbus org.kde.ksmserver /KSMServer logout 0 2 0")
+                , ("go_out",    callCommand "qdbus org.kde.Shutdown /Shutdown logout")
+                , ("restart",    callCommand "qdbus org.kde.Shutdown /Shutdown logoutAndReboot")
+                , ("shutoff",  callCommand "qdbus org.kde.Shutdown /Shutdown logoutAndShutdown")
                 , ("SUSeep",   callCommand "systemctl suspend")
                 , ("fastSUS", callCommand "systemctl hibernate")
                 , ("logock",      callCommand "qdbus org.freedesktop.ScreenSaver /ScreenSaver Lock")
